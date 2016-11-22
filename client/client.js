@@ -9,7 +9,11 @@ let initialState = {
     id: 0,
     completed: false,
     text: 'This is my first todo list'
-  }]
+  }],
+  user: {
+    name: 'siv',
+    id: 13
+  }
 };
 
 let store = configureStore(initialState);

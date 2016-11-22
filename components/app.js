@@ -1,23 +1,38 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import TodoInput from './todoInput';
 import TodoList from './todoList';
-import { connect } from 'react-redux';
+import UserInfo from './userInfo';
+
+import actions from '../redux/actions';
+
 
 function mapStateToProps(state) {
   return state;
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+
 class App extends React.Component {
   render() {
     return (<div><h3>Todo List</h3>
-      <TodoInput dispatch={this.props.dispatch} />
+      <UserInfo user={this.props.user} generateRandomId={this.props.actions.generateRandomId} />
+      <br />
+      <TodoInput addTodo={this.props.actions.addTodo} />
         <br />
-        <TodoList todos={this.props.todos} />
+        <TodoList actions={this.props.actions} todos={this.props.todos} />
       </div>
     );
   }
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 
